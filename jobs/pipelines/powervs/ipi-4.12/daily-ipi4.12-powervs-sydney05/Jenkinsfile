@@ -166,6 +166,11 @@ pipeline {
                 else
                   exit 1
                 fi
+
+                for I in infrastructure-service power-iaas cloud-internet-services cloud-object-storage dl-cli dns; do
+                   ibmcloud plugin install ${I}
+                done
+
                 ibmcloud login -a cloud.ibm.com -r ${VPCREGION} -g ${RESOURCE_GROUP} -q --apikey=${IBMCLOUD_API_KEY}
                 ./powervs-hack/scripts/dump-powervs.sh
                 retries=0
